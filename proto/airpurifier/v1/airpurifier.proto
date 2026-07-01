@@ -28,6 +28,25 @@ message GetCurrentAirPurifierResponse {
   int64 measured_at_unix_ms = 17;
 }
 
+message SetAirPurifierPowerRequest {
+  bool on = 1;
+}
+
+message SetAirPurifierModeRequest {
+  string mode = 1;
+}
+
+message SetAirPurifierFavoriteLevelRequest {
+  int32 level = 1;
+}
+
+message SetAirPurifierControlResponse {
+  GetCurrentAirPurifierResponse current = 1;
+}
+
 service AirPurifierService {
   rpc GetCurrentAirPurifier(GetCurrentAirPurifierRequest) returns (GetCurrentAirPurifierResponse);
+  rpc SetAirPurifierPower(SetAirPurifierPowerRequest) returns (SetAirPurifierControlResponse);
+  rpc SetAirPurifierMode(SetAirPurifierModeRequest) returns (SetAirPurifierControlResponse);
+  rpc SetAirPurifierFavoriteLevel(SetAirPurifierFavoriteLevelRequest) returns (SetAirPurifierControlResponse);
 }

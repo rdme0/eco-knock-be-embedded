@@ -15,6 +15,8 @@ const (
 	SensorReadFailed
 	LightSensorReadFailed
 	AirPurifierReadFailed
+	AirPurifierControlFailed
+	AirPurifierInvalidCommand
 )
 
 type Meta struct {
@@ -53,6 +55,20 @@ var metas = map[ErrorCode]Meta{
 		GRPCCode: codes.Unavailable,
 		Number:   1,
 		Message:  "공기청정기 상태 조회에 실패했습니다",
+	},
+	AirPurifierControlFailed: {
+		Domain:   constant.DomainAirPurifier,
+		Status:   http.StatusServiceUnavailable,
+		GRPCCode: codes.Unavailable,
+		Number:   2,
+		Message:  "공기청정기 제어에 실패했습니다",
+	},
+	AirPurifierInvalidCommand: {
+		Domain:   constant.DomainAirPurifier,
+		Status:   http.StatusBadRequest,
+		GRPCCode: codes.InvalidArgument,
+		Number:   3,
+		Message:  "공기청정기 제어 명령이 올바르지 않습니다",
 	},
 }
 
